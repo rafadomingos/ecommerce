@@ -45,7 +45,10 @@ INSTALLED_APPS = [
     'pedido',
     'perfil',
 
-# TODO: remover linha abaixo
+    "crispy_forms",
+    "crispy_bootstrap4",
+
+    # TODO: remover linha abaixo
     "debug_toolbar",
 ]
 
@@ -63,6 +66,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'loja.urls'
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 TEMPLATES = [
     {
@@ -133,7 +140,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
-    os.path.join('templates/static'),
+    os.path.join(BASE_DIR, 'templates/static'),
 ]
 
 # Default primary key field type
