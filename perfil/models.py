@@ -5,6 +5,7 @@ from django.forms import ValidationError
 import re
 from utils.validacpf import valida_cpf
 
+
 class Perfil(models.Model):
     usuario = models.OneToOneField(User, on_delete=models.CASCADE)
     idade = models.PositiveIntegerField()
@@ -47,24 +48,35 @@ class Perfil(models.Model):
             ('SP', 'São Paulo'),
             ('SE', 'Sergipe'),
             ('TO', 'Tocantins'),
-            )
         )
+    )
 
     def __str__(self):
         return f'{self.usuario}'
-    
+
     def clean(self):
         error_messages = {}
-        
+
+        cpf_enviado = self.cpf or None
+        cpf_salvo = None
+        perfil = Perfil.objects.filter(cpf=cpf_enviado).first()
+
+        if perfil:
+            cpf_salvo = perfil.cpf
+            # Se encontrou algum erfil cadastrado, verifica se o cpf enviado é diferente
+            # do usuário que está fazendo a operação
+            if cpf_salvo is not None and self.pk != perfil.pk:
+                error_messages['cpf'] = 'CPF já existe'
+
         if not valida_cpf(self.cpf):
             error_messages['cpf'] = 'Digite um CPF válido'
-            
+
         if re.search(r'[^0-9]', self.cep) or len(self.cep) < 8:
             error_messages['cep'] = 'CEP inválido, digite apenas números'
-            
+
         if error_messages:
             raise ValidationError(error_messages)
-    
+
     class Meta:
         verbose_name = 'Perfil'
         verbose_name_plural = 'Perfis'

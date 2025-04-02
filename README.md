@@ -1,2 +1,2 @@
 # ecommerce
-primeiro ecommerce básico em django
+primeiro ecommerce simples e básico em django e python, INCOMPLETO

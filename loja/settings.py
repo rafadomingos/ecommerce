@@ -47,9 +47,6 @@ INSTALLED_APPS = [
 
     "crispy_forms",
     "crispy_bootstrap4",
-
-    # TODO: remover linha abaixo
-    "debug_toolbar",
 ]
 
 MIDDLEWARE = [
@@ -61,8 +58,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    # TODO: remover linha abaixo
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'loja.urls'
